@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:api_test/services/authenticationService.dart';
-import 'package:api_test/models/phone_register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterSection extends StatefulWidget {
@@ -44,6 +42,7 @@ class RegisterSectionState extends State<RegisterSection> {
       setState(() {
         _message =
             Future<String>.value('signInWithPhoneNumber auto succeeded: $user');
+        _load = false;
       });
     };
 
@@ -52,6 +51,7 @@ class RegisterSectionState extends State<RegisterSection> {
       setState(() {
         _message = Future<String>.value(
             'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
+        _load = false;
       });
     };
 
@@ -125,6 +125,7 @@ class RegisterSectionState extends State<RegisterSection> {
               decoration: const InputDecoration(
                 hintText: 'Phone Number',
               ),
+              keyboardType: TextInputType.number,
             ),
           ),
           new MaterialButton(
@@ -160,6 +161,7 @@ class RegisterSectionState extends State<RegisterSection> {
                   setState(() {
                     _message =
                         _testSignInWithPhoneNumber(_smsCodeController.text);
+                    _load = false;
                   });
                 }
               }),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:api_test/widgets/home.dart';
 import 'package:api_test/widgets/about.dart';
+import 'package:api_test/widgets/news.dart';
 import 'package:api_test/widgets/register.dart';
 
 class DrawerItem {
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
   final drawerItems = [
     new DrawerItem("Home", Icons.home),
     new DrawerItem("About", Icons.info),
+    new DrawerItem("News", Icons.rss_feed),
     new DrawerItem("Register", Icons.account_box)
   ];
   @override
@@ -32,6 +34,8 @@ class HomePageState extends State<HomePage> {
       case 1:
         return new AboutSection();
       case 2:
+        return new NewsSection();
+      case 3:
         return new RegisterSection();
       default:
         return new Text('Error');
