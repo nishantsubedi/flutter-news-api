@@ -17,14 +17,14 @@ class RegisterSectionState extends State<RegisterSection> {
   Future<String> _message = new Future<String>.value('');
   TextEditingController _smsCodeController = new TextEditingController();
   TextEditingController _phoneNumberController = new TextEditingController();
-  bool isLoggedIn;
+  bool isLoggedIn = false;
   String verificationId;
   String testSmsCode;
   String testPhoneNumber;
   bool _load = false;
 
   void initState() {
-    isLoggedIn = false;
+    // isLoggedIn = false;
     FirebaseAuth.instance.currentUser().then((user) => user != null
         ? setState(() {
             isLoggedIn = true;
@@ -88,14 +88,11 @@ class RegisterSectionState extends State<RegisterSection> {
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
     _smsCodeController.text = '';
+
     return 'signInWithPhoneNumber succeeded: $user';
   }
 
-  String _getUserInfo() {
-    _auth.currentUser().then((user) {
-      return user.phoneNumber.toString();
-    });
-  }
+  
 
   Widget build(BuildContext context) {
     Widget loadingIndicator = _load
@@ -182,6 +179,7 @@ class RegisterSectionState extends State<RegisterSection> {
             child: new Text('Log out'),
             onPressed: () {
               setState(() {
+                this.isLoggedIn = false;
                 _auth.signOut();
               });
             },

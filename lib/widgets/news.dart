@@ -7,7 +7,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:api_test/widgets/news_detail.dart';
 
 Future<Null> testRefresh() async {
-  //Future.delayed(Duration(seconds: 5));
+  Future.delayed(Duration(seconds: 5));
+  
+  
   return null;
 }
 
@@ -18,10 +20,18 @@ String _verifyImageUrl(String url) {
     return 'https://www.foot.com/wp-content/uploads/2017/03/placeholder.gif';
   }
 }
+ class NewsSection extends StatefulWidget{
+     final formatter = new DateFormat.yMMMMd("en_US");
 
-class NewsSection extends StatelessWidget {
+   @override
+     State<StatefulWidget> createState() {
+       // TODO: implement createState
+       return NewsSectionState();
+     }
+ }
+
+class NewsSectionState extends State<NewsSection> {
   NewsService _newsService = new NewsService();
-  final formatter = new DateFormat.yMMMMd("en_US");
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +56,7 @@ class NewsSection extends StatelessWidget {
                                 subtitle: new Container(
                                     margin: EdgeInsets.only(top: 5.0),
                                     child: Text(
-                                      formatter.format(DateTime.parse(
+                                      widget.formatter.format(DateTime.parse(
                                           snapshot.data[index].publishedAt)),
 
                                       //  snapshot.data[index].publishedAt

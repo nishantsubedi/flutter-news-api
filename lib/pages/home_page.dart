@@ -3,12 +3,15 @@ import 'package:api_test/widgets/home.dart';
 import 'package:api_test/widgets/about.dart';
 import 'package:api_test/widgets/news.dart';
 import 'package:api_test/widgets/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DrawerItem {
   String title;
   IconData icon;
   DrawerItem(this.title, this.icon);
 }
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class HomePage extends StatefulWidget {
   final drawerItems = [
@@ -26,6 +29,20 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
+  String userPhone = 'John Doe';
+
+  initState() {
+    _auth.currentUser().then((user) {
+      setState(() {
+        userPhone = user.phoneNumber.toString();
+      });
+    });
+    super.initState();
+  }
+
+  String getUserInfo() {
+    return 'John Doe';
+  }
 
   _getDrawerItemWidget(int pos) {
     switch (pos) {
@@ -43,6 +60,11 @@ class HomePageState extends State<HomePage> {
   }
 
   _onSelectItem(int index) {
+    _auth.currentUser().then((user) {
+      setState(() {
+        userPhone = user.phoneNumber.toString();
+      });
+    });
     setState(() {
       _selectedDrawerIndex = index;
     });
@@ -68,7 +90,7 @@ class HomePageState extends State<HomePage> {
           child: new Column(
             children: <Widget>[
               new UserAccountsDrawerHeader(
-                  accountName: new Text("John Doe"),
+                  accountName: new Text(userPhone),
                   accountEmail: new Text('John@example.com')),
               new Column(
                 children: drawerOptions,

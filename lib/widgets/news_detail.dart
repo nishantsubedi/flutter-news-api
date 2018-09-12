@@ -12,7 +12,6 @@ String _verifyImageUrl(String url) {
   }
 }
 
-
 class NewsDetailSection extends StatelessWidget {
   final News news;
   final formatter = new DateFormat.yMMMMd("en_US");
